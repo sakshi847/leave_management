@@ -125,3 +125,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'dashboard'  
 LOGOUT_REDIRECT_URL = 'login'  
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'leave-management-dffj.onrender.com', 
+]
