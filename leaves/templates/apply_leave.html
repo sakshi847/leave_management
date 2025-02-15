@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .leave-form-container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .leave-form-container h2 {
+            margin-bottom: 15px;
+        }
+        .leave-form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+        }
+        .leave-form-container input, 
+        .leave-form-container select, 
+        .leave-form-container textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .leave-form-container button {
+            background: #007bff;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .leave-form-container button:hover {
+            background: #0056b3;
+        }
+    </style>
+
+    <div class="leave-form-container">
+        <h2>Apply for Leave</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}

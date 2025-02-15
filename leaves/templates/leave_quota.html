@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Leave Quota</h2>
+
+    <form method="POST" action="{% url 'leave_quota' %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+                <label for="employee">Select Employee:</label>
+                <select name="employee" class="form-control" required>
+                    <option value="">Select Employee</option>
+                    {% for employee in employees %}
+                        <option value="{{ employee.id }}">
+                            {{ employee.get_full_name|default:employee.username }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="sl_quota">Enter SL Quota:</label>
+                <input type="number" name="sl_quota" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="pl_quota">Enter PL Quota:</label>
+                <input type="number" name="pl_quota" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="cl_quota">Enter CL Quota:</label>
+                <input type="number" name="cl_quota" class="form-control" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Save</button>
+    </form>
+
+    <table class="table table-bordered mt-4">
+        <thead class="table-dark">
+            <tr>
+                <th>Sr.No</th>
+                <th>Employee Name</th>
+                <th>Leave Type</th>
+                <th>Total Quota</th>
+                <th>Used Quota</th>
+                <th>Remaining Quota</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quota in leave_quotas %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ quota.employee.get_full_name|default:quota.employee.username }}</td>
+                <td>{{ quota.leave_type }}</td>
+                <td>{{ quota.total_quota }}</td>
+                <td>{{ quota.used_quota }}</td>
+                <td>{{ quota.remain_quota }}</td>
+                <td>
+                    <a href="{% url 'edit_leave' quota.id %}" class="btn btn-warning">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
